@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation._
 import org.springframework.web.util.UriComponentsBuilder
 
 import scala.collection.JavaConverters._
+import de.df.util.JacksonJsonImplicits._
 
 @RestController
 @CrossOrigin
 @RequestMapping(Array("/petclinic/api/visits"))
-class VisitController(clinicService: ClinicService, mapper: ObjectMapper) {
+class VisitController(clinicService: ClinicService)(implicit val mapper: ObjectMapper) {
 
   @RequestMapping(value = Array(""), method = Array(RequestMethod.GET), produces = Array(MediaType.APPLICATION_JSON_UTF8_VALUE))
   def getAllVisits: ResponseEntity[Seq[Visit]] = {
@@ -39,7 +40,7 @@ class VisitController(clinicService: ClinicService, mapper: ObjectMapper) {
     val headers = new HttpHeaders
 
     if(bindingResult.hasErrors || (visit == null) || (visit.pet == null)) {
-      headers.add("errors", mapper.writeValueAsString(bindingResult.getFieldErrors.asScala.map(BindingError.from)))
+      headers.add("errors", bindingResult.getFieldErrors.asScala.map(BindingError.from).asJson)
 
       new ResponseEntity[Visit](headers, HttpStatus.BAD_REQUEST)
     } else {
@@ -55,7 +56,7 @@ class VisitController(clinicService: ClinicService, mapper: ObjectMapper) {
     val headers = new HttpHeaders
 
     if(bindingResult.hasErrors || (visit == null) || (visit.pet == null)) {
-      headers.add("errors", mapper.writeValueAsString(bindingResult.getFieldErrors.asScala.map(BindingError.from)))
+      headers.add("errors", bindingResult.getFieldErrors.asScala.map(BindingError.from).asJson)
 
       new ResponseEntity[Visit](headers, HttpStatus.BAD_REQUEST)
     } else {
