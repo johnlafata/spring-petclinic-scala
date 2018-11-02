@@ -13,7 +13,11 @@ import scala.collection.JavaConverters._
 
 @Entity
 @Table(name = "owners")
-case class Owner(@BeanProperty
+case class Owner(@(Id@field)
+                 @(GeneratedValue@field)(strategy = GenerationType.IDENTITY)
+                 @BeanProperty
+                 var id: Int,
+                 @BeanProperty
                  firstName: String,
                  @BeanProperty
                  lastName: String,
@@ -31,12 +35,7 @@ case class Owner(@BeanProperty
                  @(JsonIgnoreProperties@field)(value = Array("owner"))
                  pets: util.List[Pet]) {
 
-  @(Id@field)
-  @(GeneratedValue@field)(strategy = GenerationType.IDENTITY)
-  @BeanProperty
-  var id: Int = _
-
-  protected def this() = this(null, null, null, null, null, Collections.emptyList())
+  protected def this() = this(null.asInstanceOf[Int], null, null, null, null, null, Collections.emptyList())
 
   def getPets: util.List[Pet] = {
     pets.asScala.sortBy(_.name).toList.asJava

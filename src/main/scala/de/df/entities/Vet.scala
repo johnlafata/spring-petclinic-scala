@@ -11,7 +11,11 @@ import scala.collection.JavaConverters._
 
 @Entity
 @Table(name = "vets")
-case class Vet(@BeanProperty
+case class Vet(@(Id@field)
+               @(GeneratedValue@field)(strategy = GenerationType.IDENTITY)
+               @BeanProperty
+               var id: Int,
+               @BeanProperty
                firstName: String,
                @BeanProperty
                lastName: String,
@@ -19,12 +23,7 @@ case class Vet(@BeanProperty
                @(JoinTable@field)(name = "vet_specialties", joinColumns = Array(new JoinColumn(name = "vet_id")), inverseJoinColumns = Array(new JoinColumn(name = "specialty_id")))
                specialties: java.util.List[Specialty]) {
 
-  @(Id@field)
-  @(GeneratedValue@field)(strategy = GenerationType.IDENTITY)
-  @BeanProperty
-  var id: Int = _
-
-  protected def this() = this(null, null, Collections.emptyList())
+  protected def this() = this(null.asInstanceOf[Int], null, null, Collections.emptyList())
 
   def getSpecialties: util.List[Specialty] = {
     specialties.asScala.sortBy(_.name).toList.asJava

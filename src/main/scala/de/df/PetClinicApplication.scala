@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 
 @SpringBootApplication
-class PetClinicApplication(val mapper: ObjectMapper) {
+class PetClinicApplication(mapper: ObjectMapper) {
   mapper
     .registerModule(DefaultScalaModule)
     .registerModule(new JavaTimeModule)

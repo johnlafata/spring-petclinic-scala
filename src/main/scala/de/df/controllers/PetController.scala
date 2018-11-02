@@ -16,7 +16,7 @@ import scala.collection.JavaConverters._
 @RestController
 @CrossOrigin
 @RequestMapping(Array("/petclinic/api/pets"))
-class PetController(val clinicService: ClinicService, val mapper: ObjectMapper) {
+class PetController(clinicService: ClinicService, mapper: ObjectMapper) {
 
   @RequestMapping(value = Array("/{petId}"), method = Array(RequestMethod.GET), produces = Array(MediaType.APPLICATION_JSON_UTF8_VALUE))
   def getPet(@PathVariable petId: Int): ResponseEntity[Pet] = {
@@ -66,7 +66,7 @@ class PetController(val clinicService: ClinicService, val mapper: ObjectMapper) 
       clinicService.findPetById(petId) match {
         case None => new ResponseEntity[Pet](HttpStatus.NOT_FOUND)
         case Some(currentPet) =>
-          val updatedPet = currentPet.copy(pet.name, pet.birthDate, pet.petType, pet.owner, pet.visits)
+          val updatedPet = currentPet.copy(name = pet.name, birthDate = pet.birthDate, petType = pet.petType, owner = pet.owner)
           clinicService.savePet(updatedPet)
 
           new ResponseEntity(updatedPet, HttpStatus.NO_CONTENT)

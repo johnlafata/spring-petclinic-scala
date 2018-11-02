@@ -9,7 +9,7 @@ import scala.collection.JavaConverters._
 import de.df.util.JavaOptionals._
 
 @Service
-class ClinicService(val visitRepository: VisitRepository, val petRepository: PetRepository, val ownerRepository: OwnerRepository) {
+class ClinicService(visitRepository: VisitRepository, petRepository: PetRepository, ownerRepository: OwnerRepository) {
 
   @Transactional(readOnly = true)
   def findAllOwners: Seq[Owner] = ownerRepository.findAll.asScala.toSeq

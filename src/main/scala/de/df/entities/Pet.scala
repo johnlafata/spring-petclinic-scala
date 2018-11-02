@@ -13,7 +13,11 @@ import scala.collection.JavaConverters._
 
 @Entity
 @Table(name = "pets")
-case class Pet(@BeanProperty
+case class Pet(@(Id@field)
+               @(GeneratedValue@field)(strategy = GenerationType.IDENTITY)
+               @BeanProperty
+               var id: Int,
+               @BeanProperty
                name: String,
                @BeanProperty
                @Temporal(TemporalType.DATE)
@@ -32,13 +36,7 @@ case class Pet(@BeanProperty
                @(OneToMany@field)(cascade = Array(CascadeType.ALL), mappedBy = "pet", fetch = FetchType.EAGER)
                @(JsonIgnoreProperties@field)(value = Array("pet"))
                visits: util.List[Visit]) {
-
-  @(Id@field)
-  @(GeneratedValue@field)(strategy = GenerationType.IDENTITY)
-  @BeanProperty
-  var id: Int = _
-
-  protected def this() = this(null, null, null, null, Collections.emptyList())
+  protected def this() = this(null.asInstanceOf[Int], null, null, null, null, Collections.emptyList())
 
   def getVisits: util.List[Visit] = {
     visits.asScala.sortBy(_.date).toList.asJava

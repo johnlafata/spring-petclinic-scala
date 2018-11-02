@@ -7,11 +7,12 @@ import scala.beans.BeanProperty
 
 @Entity
 @Table(name = "types")
-case class PetType(@BeanProperty name: String) {
-  @(Id@field)
-  @(GeneratedValue@field)(strategy = GenerationType.IDENTITY)
-  @BeanProperty
-  var id: Int = _
+case class PetType(@(Id@field)
+                   @(GeneratedValue@field)(strategy = GenerationType.IDENTITY)
+                   @BeanProperty
+                   var id: Int,
+                   @BeanProperty
+                   name: String) {
 
-  protected def this() = this(null)
+  protected def this() = this(null.asInstanceOf[Int], null)
 }

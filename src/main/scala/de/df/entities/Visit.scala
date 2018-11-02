@@ -12,7 +12,11 @@ import scala.beans.BeanProperty
 
 @Entity
 @Table(name = "visits")
-case class Visit(@BeanProperty
+case class Visit(@(Id@field)
+                 @(GeneratedValue@field)(strategy = GenerationType.IDENTITY)
+                 @BeanProperty
+                 var id: Int,
+                 @BeanProperty
                  @(Temporal@field)(TemporalType.TIMESTAMP)
                  @(DateTimeFormat@field)(pattern = "yyyy/MM/dd")
                  @(JsonFormat@field)(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
@@ -27,10 +31,5 @@ case class Visit(@BeanProperty
                  @(JsonIgnoreProperties@field)(value = Array("visits"))
                  pet: Pet) {
 
-  @(Id@field)
-  @(GeneratedValue@field)(strategy = GenerationType.IDENTITY)
-  @BeanProperty
-  var id: Int = _
-
-  protected def this() = this(null, null, null)
+  protected def this() = this(null.asInstanceOf[Int], null, null, null)
 }
