@@ -42,7 +42,4 @@ case class Pet(@(Id@field)
     visits.asScala.sortBy(_.date).toList.asJava
   }
 
-  def addVisit(visit: Visit): Unit = {
-    visits.add(visit)
-  }
 }

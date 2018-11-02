@@ -29,9 +29,4 @@ case class Vet(@(Id@field)
     specialties.asScala.sortBy(_.name).toList.asJava
   }
 
-  def getNrOfSpecialties: Int = specialties.size
-
-  def addSpecialty(specialty: Specialty): Unit = {
-    specialties.add(specialty)
-  }
 }

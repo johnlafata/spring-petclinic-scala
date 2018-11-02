@@ -41,7 +41,4 @@ case class Owner(@(Id@field)
     pets.asScala.sortBy(_.name).toList.asJava
   }
 
-  def addPet(pet: Pet): Unit = {
-    pets.add(pet)
-  }
 }
