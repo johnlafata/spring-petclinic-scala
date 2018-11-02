@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository
 
 import java.lang
 
-trait PetRepository extends CrudRepository[Pet, Integer]{
+trait PetRepository extends CrudRepository[Pet, Int]{
 
   @Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
   def findPetTypes: lang.Iterable[PetType]

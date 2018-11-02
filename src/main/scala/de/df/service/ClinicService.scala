@@ -12,15 +12,15 @@ import de.df.util.JavaOptionals._
 class ClinicService(visitRepository: VisitRepository, petRepository: PetRepository, ownerRepository: OwnerRepository) {
 
   @Transactional(readOnly = true)
-  def findAllOwners: Seq[Owner] = ownerRepository.findAll.asScala.toSeq
+  def findAllOwners: Seq[Owner] = ownerRepository._findAll()
 
   def findOwnerByLastName(lastName: String): Seq[Owner] = {
-    ownerRepository.findByLastName(lastName).asScala.toSeq
+    ownerRepository._findByLastName(lastName)
   }
 
   @Transactional(readOnly = true)
   def findOwnerById(ownerId: Int): Option[Owner] = {
-    ownerRepository.findById(ownerId).toOption
+    ownerRepository._findById(ownerId)
   }
 
   @Transactional
