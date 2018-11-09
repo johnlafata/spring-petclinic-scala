@@ -1,7 +1,8 @@
 package de.df.repositories
 
 import de.df.entities.Vet
-import org.springframework.data.repository.CrudRepository
+import de.df.util.ScalaJpaAdapter
+import org.springframework.data.repository.Repository
 
-trait VetRepository extends CrudRepository[Vet, Int] {
+trait VetRepository extends Repository[Vet, Int] with ScalaJpaAdapter[Vet, Int] {
 }

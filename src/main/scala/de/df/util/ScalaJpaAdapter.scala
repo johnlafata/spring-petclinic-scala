@@ -1,12 +1,8 @@
 package de.df.util
 
-import org.springframework.data.repository.CrudRepository
-import org.springframework.data.repository.query.Param
-
-import scala.collection.JavaConverters._
-import de.df.util.JavaOptionals._
-
-trait ScalaJpaAdapter[T, ID] { self: CrudRepository[T, ID] =>
-  def _findById(@Param("id") id: ID): Option[T] = findById(id).toOption
-  def _findAll(): Seq[T] = findAll().asScala.toSeq
+trait ScalaJpaAdapter[T, ID] {
+  def findAll(): Array[T]
+  def findById(id: ID): Option[T]
+  def save[S <: T](entity: S): S
+  def deleteById(id: ID): Unit
 }
